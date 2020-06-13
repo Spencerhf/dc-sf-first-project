@@ -1,65 +1,157 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <title>The Big Cheese</title>
         <style>
             body {
-                text-align: center;
-                width: 50%;
-                margin: auto;
-                border: 3px solid black;
-                height: 550px;
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align:center;
+                background-image: url("https://wallpapercave.com/wp/wp2309330.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;  
             }
 
             h1 {
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                font-size: 90px;
+                padding: 30px;
+                text-align:center;
                 background-color: yellow;
-                margin-top: 30px;
-                padding: 20px;
-                border: dashed 3px black;
             }
-
             p {
-                border: dashed 3px black;
-                background-color: yellow;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 30px;
+                text-align:center;
+                background-color: rgb(245, 142, 8);
+            }
+            .form {
+                font-size: 30px;
+                text-align:center;
             }
 
-            #picture {
-                border: dashed 3px black;
+            .left-side { 
+                background-color:rgb(221, 183, 59);
+                width: 50%;
+                height: 300px;
+                float: left;
             }
 
-            .cheese {
-                border: dashed 3px black;
-                background-color: yellow;
+            .right-side {
+                width: 50%;
+                height: 300px;
+                background-color: rgb(221, 183, 59);
+                float: right;
+            }
+
+            .right-side p {
+                background-color: darkgoldenrod;
             }
         </style>
+
+        <script>
+            var totalTendered = 0;
+
+            function displayMoney() {
+                totalTendered = document.getElementById("money").value;
+                document.getElementById("money-entered").innerHTML = "You have $" + totalTendered;
+            }
+
+            function displayCheese() {
+                var cheese = document.getElementById("choose-cheese").value;
+                document.getElementById("cheese-entered").innerHTML = "You have chosen " + cheese;
+            }
+            
+            var items = {
+                Gouda : 1.00,
+                Parmesean : 1.50,
+                Mozerella : 0.25,
+                Brie : 1.00,
+                Cheddar: 1.50,
+                American : 1.00
+            };
+            //Bag of items
+            var bag = [];
+            var getItems = function() {
+            return items;
+            }
+            function enterMoney(amount) {
+                if(isNaN(amount) == false) {
+                            totalTendered += amount;
+                } else {
+                    console.log("You entered the wrong amount");
+                }
+            }
+            function makeSelection(selection) {
+                if(!items[selection]) {
+                    console.log("No Item Exist");
+                } else {
+                var item_price = items[selection];
+                if(item_price <= totalTendered) {
+                    totalTendered = totalTendered - item_price;
+                    return selection;
+                } else {
+                    console.log("Not enough money to buy " + selection);
+                }
+            }
+            }
+            function getChange() {
+                if(!totalTendered) {
+                console.log("There is no money to return");
+                }
+                var amountToReturn = totalTendered;
+                //remove all the money
+                totalTendered = 0;
+                return amountToReturn;
+            }
+
+        </script>
     </head>
     <body>
-        <h1>Cheese Machine</h1>
-
-        <img id="picture" src="data:image/jpeg;base64,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" alt="">
-
-        <p>Pick and choose your favorite cheese!</p>
-
-        <form class="cheese">
-            <div>
-                <label for="">Enter Money Here</label>
-                <input type="number">
-            </div>
-            <br>
-            <div>
-                <label for="">Choose Cheese</label>
-                <select>
-                    <option>Gouda</option>
-                    <option>Mozeralla</option>
-                    <option>Cheddar</option>
-                    <option>Nacho</option>
-                </select>
-            </div>
-            <br>
-            <div>
-                <label for="">Get Change</label>
-                <input type="button" value="Change">
+        <h1>The Big Cheese</h1>
+        <img width=300px src="https://assets.katomcdn.com/q_auto,f_auto/products/231/231-5301/231-5301.jpg">
+        <p>The big cheese will provide you with any cheese you want. Gouda. Parmesean. Mozerella. Brie. Cheddar.</p>
+            <p><b><i>Whatever your heart desires.</i></b></p>
+        
+        
+        <div class="container">
+            <div class="left-side">
+                <form action="">
+                    <div class='form'>
+                        <label>Enter Your Money</label>
+                        <input type="number" id="money">
+                        <input type="button" value="submit" onclick="displayMoney()">
+                    </div>
+                    <br>
+                    <div class="form">
+                        <label>Choose Your Cheese</label>
+                        <select id="choose-cheese">
+                            <option>Gouda</option>
+                            <option>Parmesean</option>
+                            <option>Mozerella</option>
+                            <option>Brie</option>
+                            <option>Cheddar</option>
+                            <option>American</option>
+                            <option>French</option>
+                            <option>French Poodle</option>
+                        </select>
+                        <input type="button" value="submit" onclick="displayCheese()">    
+                    </div>
+                    <br>
+                    <div class="form">
+                        <label>Get Your Change</label>
+                        <input type="button" value="submit" onclick="display()">
+                    </div>
+                </form>
             </div>
             
-        </form>
+            <div class="right-side">
+                <p id="money-entered"></p>
+                <p id="cheese-entered"></p>
+            </div>
+        </div>
+            
     </body>
 </html>
